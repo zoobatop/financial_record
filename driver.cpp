@@ -1,3 +1,5 @@
+// Trabalho de Técnicas de Programaçao e Laboratorio de Tecnicas de Programaçao.
+// Alunos: Pamela Magalhaes de Queiroz e Rafael Henrique Geres.
 #include <iostream>
 #include <string>
 #include <vector>
@@ -7,7 +9,7 @@ using namespace std;
 
 // estrutura das parcela(s)//
 struct parcela {
-	
+
 	string vencimento;
 	string pagamento;
 	float valor;
@@ -28,8 +30,8 @@ struct cliente {
 
 };
 
-//função para cadastrar o cliente//
-void cadastrocliente(vector<cliente> &clientes) {
+//funcao para cadastrar o cliente//
+void cadastrocliente(vector<cliente>& clientes) {
 
 	cliente cliente;
 	cout << "nome do cliente: ";
@@ -50,170 +52,172 @@ void cadastrocliente(vector<cliente> &clientes) {
 
 }
 
-// função para visualizar o cadastro do cliente// 
-void contacliente(const vector<cliente> &clientes) {
-	
-	cout << "CPF do cliente: ";
-		string cpf;
-		getline(cin, cpf);
-		
-		auto it = find_if(clientes.begin(), clientes.end(), // o 'auto' tem a finalidade de deduzir o tipo apropriado para a var//
-			[cpf](const cliente& c){ return c.cpf == cpf; });
-		if (it != clientes.end()) {
+// funcao para visualizar o cadastro do cliente// 
+void contacliente(const vector<cliente>& clientes) {
 
-			cout << "nome: " << it->nome << endl;
-			cout << "endereco: " << it->endereco << endl;
-			cout << "data de nascimento: " << it->datanascimento << endl;
-			cout << "data do emprestimo: " << it->prazoemprestimo << endl;
-			cout << "valor total do emprestimo: " << it->valoremprestimo << endl;
-			cout << "parcelas:" << endl;
-			for (const auto& parcela : it->parcelas) {
-				cout << "valor: " << parcela.valor << endl;
-				cout << "paga: " << (parcela.pagou ? "Sim" : "Nao") << endl;
-				cout << "data de pagamento: " << parcela.pagamento << endl;
-				cout << "data de vencimento: " << parcela.vencimento << endl;
-			}
-	} else {
-		cout << "não há registros desse cliente." << endl;
+	cout << "CPF do cliente: ";
+	string cpf;
+	getline(cin, cpf);
+
+	auto it = find_if(clientes.begin(), clientes.end(), // o 'auto' tem a finalidade de deduzir o tipo apropriado para a var//
+		[cpf](const cliente& c) { return c.cpf == cpf; });
+	if (it != clientes.end()) {
+
+		cout << "nome: " << it->nome << endl;
+		cout << "endereco: " << it->endereco << endl;
+		cout << "data de nascimento: " << it->datanascimento << endl;
+		cout << "data do emprestimo: " << it->prazoemprestimo << endl;
+		cout << "valor total do emprestimo: " << it->valoremprestimo << endl;
+		cout << "parcelas:" << endl;
+		for (const auto& parcela : it->parcelas) {
+			cout << "valor: " << parcela.valor << endl;
+			cout << "paga: " << (parcela.pagou ? "Sim" : "Nao") << endl;
+			cout << "data de pagamento: " << parcela.pagamento << endl;
+			cout << "data de vencimento: " << parcela.vencimento << endl;
+		}
+	}
+	else {
+		cout << "nao ha registros desse cliente." << endl;
 	}
 }
 
-//função para editar informações do cliente//
-void editarcliente(vector<cliente> &clientes) {
-	    cout << "CPF do cliente: ";
-		string cpf;
-		getline(cin, cpf);
-		
-		auto it = find_if(clientes.begin(), clientes.end(),
-						[cpf](const cliente &c)
-						{ return c.cpf == cpf; });
-		if (it != clientes.end())
-		
+//funcao para editar informacoes do cliente//
+void editarcliente(vector<cliente>& clientes) {
+	cout << "CPF do cliente: ";
+	string cpf;
+	getline(cin, cpf);
+
+	auto it = find_if(clientes.begin(), clientes.end(),
+		[cpf](const cliente& c)
+		{ return c.cpf == cpf; });
+	if (it != clientes.end())
+
+	{
+		cout << "nome (deixe em branco para nao alterar): ";
+
+		string nome;
+
+		getline(cin, nome);
+
+		if (!nome.empty())
 		{
-			cout << "nome (deixe em branco para nao alterar): ";
-				
-				string nome;
-				
-				getline(cin, nome);
+			it->nome = nome;
+		}
+		cout << "endereco (deixe em branco para nao alterar): ";
 
-			if (!nome.empty())
-			{
-				it->nome = nome;
-			}
-			cout << "endereco (deixe em branco para nao alterar): ";
-				
-				string endereco;
-				
-				getline(cin, endereco);
+		string endereco;
 
-			if (!endereco.empty())
-			{
-				it->endereco = endereco;
-			}
-			cout << "data de nascimento (deixe em branco para nao alterar): ";
-				
-				string datanascimento;
-				
-				getline(cin, datanascimento);
+		getline(cin, endereco);
 
-			if (!datanascimento.empty())
-			{
-				it->datanascimento = datanascimento;
-			}
-			cout << "data do emprestimo (deixe em branco para nao alterar): ";
-				
-				string vencimento;
-				
-				getline(cin, vencimento);
+		if (!endereco.empty())
+		{
+			it->endereco = endereco;
+		}
+		cout << "data de nascimento (deixe em branco para nao alterar): ";
 
-			if (!vencimento.empty())
-			{
-				it->prazoemprestimo = vencimento;
-			}
-			cout << "valor total do emprestimo (deixe em branco para nao alterar): ";
-				
-				string valor;
-				
-				getline(cin, valor);
+		string datanascimento;
 
-			if (!valor.empty())
-			{
-				float valoremprestimo = stof(valor); //'stof' verifica a string com o seu conteúdo como float//
-				it->valoremprestimo = valoremprestimo;
-			}
-			cout << "Informacoes do cliente atualizadas com sucesso!" << endl;
+		getline(cin, datanascimento);
+
+		if (!datanascimento.empty())
+		{
+			it->datanascimento = datanascimento;
+		}
+		cout << "data do emprestimo (deixe em branco para nao alterar): ";
+
+		string vencimento;
+
+		getline(cin, vencimento);
+
+		if (!vencimento.empty())
+		{
+			it->prazoemprestimo = vencimento;
+		}
+		cout << "valor total do emprestimo (deixe em branco para nao alterar): ";
+
+		string valor;
+
+		getline(cin, valor);
+
+		if (!valor.empty())
+		{
+			float valoremprestimo = stof(valor); //'stof' verifica a string com o seu conteudo como float//
+			it->valoremprestimo = valoremprestimo;
+		}
+		cout << "Informacoes do cliente atualizadas com sucesso!" << endl;
 	}
-		else
+	else
 	{
 		cout << "não há registros desse cliente." << endl;
 	}
 }
 
-// funcão para cadastrar uma parcela paga//
-void cadastrodeparcelapaga (vector<cliente> &clientes) {
+// funcao para cadastrar uma parcela paga//
+void cadastrodeparcelapaga(vector<cliente>& clientes) {
 
 	cout << "CPF do cliente: ";
 	string CPF;
 	getline(cin, CPF);
-	
+
 	auto it = find_if(clientes.begin(), clientes.end(),
-					[CPF](const cliente &c)
-					{ return c.cpf == CPF; });
+		[CPF](const cliente& c)
+		{ return c.cpf == CPF; });
 	if (it != clientes.end()) {
-		
+
 		cout << "numero de parcela (1 a 12): ";
 		int numparcela;
 		cin >> numparcela;
 		cin.ignore(); // ignora a quebra da linha//
 
-	if (numparcela < 1 || numparcela > 12) { // "||" operador lógico (OR), assim retornando verdadeiro //
+		if (numparcela < 1 || numparcela > 12) { // "||" operador logico (OR), assim retornando verdadeiro //
 
-		cout << "numero de parcela invalido." << endl;
-		return;
+			cout << "numero de parcela invalido." << endl;
+			return;
 
+		}
+
+		parcela& parcela = it->parcelas[numparcela - 1];
+		if (parcela.valor == 0) {
+
+			parcela.valor = it->valoremprestimo / 12;
+
+		}
+		if (parcela.pagou) {
+
+			cout << "parcela ja foi paga." << endl;
+			return;
+
+		}
+
+		cout << "data do pagamento (por gentileza, neste formato (DD/MM/AAAA)): ";
+		getline(cin, parcela.pagamento);
+		parcela.pagou = true;
+		cout << "parcela foi paga com sucesso!"
+
+			;
 	}
-	
-	parcela &parcela = it->parcelas[numparcela - 1];
-	if (parcela.valor == 0){
+	else {
 
-		parcela.valor = it->valoremprestimo / 12;
-
-	}
-	if (parcela.pagou){
-
-		cout << "parcela já foi paga." << endl;
-		return;
-
-	}
-
-	cout << "data do pagamento (por gentileza, neste formato (DD/MM/AAAA)): ";
-	getline(cin, parcela.pagamento);
-	parcela.pagou = true;
-	cout << "parcela foi paga com sucesso!"
-
-	;}
-		else {
-		
-		cout << "não há registros desse cliente." << endl;	
+		cout << "nao ha registros desse cliente." << endl;
 
 	}
 
 }
 
-// função para cadastrar um empréstimo//
-void cadastroemprestimo (vector<cliente>  &clientes) {
+// funcao para cadastrar um emprestimo//
+void cadastroemprestimo(vector<cliente>& clientes) {
 
-	cout <<"CPF do cliente: ";
+	cout << "CPF do cliente: ";
 	string cpf;
 	getline(cin, cpf);
 
 	auto it = find_if(clientes.begin(), clientes.end(),
-					 [cpf](const cliente &c)
-					 { return c.cpf == cpf; });
+		[cpf](const cliente& c)
+		{ return c.cpf == cpf; });
 
 	if (it != clientes.end()) {
 
-		if (!it -> parcelas.empty()) {
+		if (!it->parcelas.empty()) {
 
 			cout << "cliente ja possui um emprestimo em vigencia" << endl;
 
@@ -225,100 +229,97 @@ void cadastroemprestimo (vector<cliente>  &clientes) {
 		float valordoemprestimo;
 		cin >> valordoemprestimo;
 		cin.ignore();
-		it -> valoremprestimo = valordoemprestimo;
-		
-		for (int i = 0; i <12; i++) {
+		it->valoremprestimo = valordoemprestimo;
+
+		for (int i = 0; i < 12; i++) {
 
 			parcela parcelas;
 			parcelas.valor = valordoemprestimo / 12;
-			it -> parcelas.push_back(parcelas);
+			it->parcelas.push_back(parcelas);
 
 		}
 
 		cout << "emprestimo cadastrado com sucesso" << endl;
 	}
 
-		else {
+	else {
 
-			cout << "não há registros deste cliente." << endl;
+		cout << "nao ha registros deste cliente." << endl;
 
-		}
+	}
 
 
-	}	
+}
 
-//função para deletar o registro do cliente //
-void deletarcliente(vector<cliente> &clientes) {
+//funcao para deletar o registro do cliente //
+void deletarcliente(vector<cliente>& clientes) {
 
 	cout << "CPF do cliente: ";
-    string cpf;
-    getline(cin, cpf);   
+	string cpf;
+	getline(cin, cpf);
 	auto it = find_if(clientes.begin(), clientes.end(),
-                          [cpf](const cliente &c)
-                          { return c.cpf == cpf; });
-    if (it != clientes.end()) {
+		[cpf](const cliente& c)
+		{ return c.cpf == cpf; });
+	if (it != clientes.end()) {
 
-			clientes.erase(it);
-			cout << "registro do cliente excluido com sucesso." << endl;
+		clientes.erase(it);
+		cout << "registro do cliente excluido com sucesso." << endl;
 
 	}
 	else
 	{
-			
-			cout << "não há registros deste cliente." << endl;
+
+		cout << "nao ha registros deste cliente." << endl;
 
 	}
 
 }
 
 int main()
-    {
-        vector<cliente> clientes;
-        int opcao = 0;
-        while (opcao != 7)
+{
+	vector<cliente> clientes;
+	int opcao = 0;
+	while (opcao != 7)
 
-        {
-            cout << "Selecione uma opcao:" << endl;
-            cout << "1. Cadastrar cliente" << endl;
-            cout << "2. Visualizar as informacoes de um cliente" << endl;
-            cout << "3. Editar as informacoes de um cliente" << endl;
-            cout << "4. Cadastrar parcela paga" << endl;
-            cout << "5. Cadastrar emprestimo" << endl;
-            cout << "6. Excluir cliente" << endl;
-            cout << "7. Sair" << endl;
-            cout << "Opcao: ";
-            cin >> opcao;
-            cin.ignore();
+	{
+		cout << "Selecione uma opcao:" << endl;
+		cout << "1. Cadastrar cliente" << endl;
+		cout << "2. Visualizar as informacoes de um cliente" << endl;
+		cout << "3. Editar as informacoes de um cliente" << endl;
+		cout << "4. Cadastrar parcela paga" << endl;
+		cout << "5. Cadastrar emprestimo" << endl;
+		cout << "6. Excluir cliente" << endl;
+		cout << "7. Sair" << endl;
+		cout << "Opcao: ";
+		cin >> opcao;
+		cin.ignore();
 
-            switch (opcao)
-            {
-            case 1:
-                cadastrocliente(clientes);
-                break;
-            case 2:
-                contacliente(clientes);
-                break;
-            case 3:
-                editarcliente(clientes);
-                break;
-            case 4:
-                cadastrodeparcelapaga(clientes);
-                break;
-            case 5:
-                cadastroemprestimo(clientes);
-                break;
-            case 6:
-                deletarcliente(clientes);
-                break;
-            case 7:
-                cout << "Saindo do programa..." << endl;
-                break;
-            default:
-                cout << "Opcao invalida." << endl;
-            }
-        }
-    }
+		switch (opcao)
+		{
+		case 1:
+			cadastrocliente(clientes);
+			break;
+		case 2:
+			contacliente(clientes);
+			break;
+		case 3:
+			editarcliente(clientes);
+			break;
+		case 4:
+			cadastrodeparcelapaga(clientes);
+			break;
+		case 5:
+			cadastroemprestimo(clientes);
+			break;
+		case 6:
+			deletarcliente(clientes);
+			break;
+		case 7:
+			cout << "Saindo do programa..." << endl;
+			break;
+		default:
+			cout << "Opcao invalida." << endl;
+		}
+	}
+}
 
-
-// Trabalho (30/03/2023): Rafael Henrique Geres & Pamela Magalhães //
-// faz o L //
